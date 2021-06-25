@@ -32,4 +32,5 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 4. Launch websockets server - In docker php container you must run command "php artisan websockets:serve" this will launch websockets server, good advice to launch server form other terminal windows, because it will lock terminal form websockets is launch.Websockets will use there or server to process data sending and receiving.
 
 ## Useful
-1. Seeded test user passwords all will be "password"
+1. app will be accessable to localhost port 8001 "http://127.0.0.1:8001/"
+2. Seeded test user passwords all will be "password"

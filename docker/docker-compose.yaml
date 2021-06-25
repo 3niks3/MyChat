@@ -1,0 +1,59 @@
+version: '3.7'
+networks:
+  app-network:
+    driver: bridge
+services:
+    webservices:
+        image: 'nginx:latest'
+        container_name: webservices
+        tty: true
+        working_dir: /var/www
+        volumes:
+          - '../../../www:/var/www'
+          - './nginx/hosts.conf:/etc/nginx/conf.d/hosts.conf'
+          - ./log:/var/log/apache2
+
+        ports:
+          - '8000:8000'
+          - '8001:8001'
+        depends_on:
+          - php
+          - mysql
+        networks:
+          - app-network
+    php:
+        container_name: php
+        build:
+            context: ./php_8.0
+            dockerfile: Dockerfile
+        working_dir: /var/www
+        volumes:
+            - '../../../www:/var/www'
+            - './php_8.0/local.ini:/usr/local/etc/php/conf.d/local.ini'
+        depends_on:
+            - mysql
+        networks:
+            - app-network
+        ports:
+          - '6001:6001'
+        expose:
+         - "6001"
+    mysql:
+        image: mysql:5.7.34
+        container_name: mysql
+        tty: true
+        ports:
+          - '3306:3306'
+        volumes:
+            - 'database:/var/lib/mysql'
+        environment:
+            MYSQL_ROOT_PASSWORD: secret123
+            MYSQL_USER: user
+            MYSQL_PASSWORD: secret321
+        networks:
+            - app-network
+volumes:
+  database: null
+
+
+
