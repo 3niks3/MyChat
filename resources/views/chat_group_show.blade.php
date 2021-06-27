@@ -229,7 +229,7 @@
             .listenForWhisper('typing', (e) => {
                 let username = e.username||'';
                 let scroll_bottom = false;
-                let typing_loader = '<div class="m-1 order-1 '+username+'_typing_container">\n' +
+                let typing_loader = '<div class="m-1 order-1" data-typing-user="'+username+'_typing_container">\n' +
                     '                                <strong>Typing...</strong>\n' +
                     '                                <div class="spinner-grow spinner-grow-sm" role="status">\n' +
                     '                                    <span class="visually-hidden">Loading...</span>\n' +
@@ -253,11 +253,11 @@
             })
             .listenForWhisper('stop_typing', (e) => {
             let username = e.username||'';
-            let search_class = username+'_typing_container';
+            let search_attr = username+'_typing_container';
 
-            $('div.'+search_class).remove();
+            $('div[data-typing-user="'+search_attr+'"]').remove();
             console.log('stop_typing ');
-        })
+            })
             .error((error) => {
                 console.error(error);
             });

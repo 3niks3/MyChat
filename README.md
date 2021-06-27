@@ -19,20 +19,21 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - datatables.net - used to process datatables on client side  
 
 ## Project "My Chat" setup guide
-1. Set up Docker server
-1.1 Build docker container running build on docker compose file (docker/docker-compose.yaml) 
-1.2 Launch docker server by running "docker-compose up" on docker compose file (docker/docker-compose.yaml) 
-2. set up dependencies
-2.1 Access docker server terminal "docker exec -it php sh", "php" is container name where php application are installed
-2.2 Change/add ".env" file - copy and rename .env.example file + set up your required configurations.
-2.3 Create database in docker mysql container
-2.4 "Setup composer dependencies" - form terminal go to project root directory and initialize composer dependencies "composer install"
-2.5 "Setup npm dependencies" - form terminal  go to project root directory and initialize npm dependencies "npm install"
-2.6 "Setup Javascript(JS) and CSS" - Run laravel mix to generate JS and CSS files "npm run dev"
-3. Setup database structure
-3.1 Run laravel migrations with seeds "php artisan migrate --seed" this will automatically add dummy data for important project tables
-4. Launch websockets server - In docker php container you must run command "php artisan websockets:serve" this will launch websockets server, good advice to launch server form other terminal windows, because it will lock terminal form websockets is launch.Websockets will use there or server to process data sending and receiving.
+1. Clone this reposotory.
+2. Copy `.env.example` as `.env` (change db configs if needed, but everything should be working by default)
+3. Build project `docker-compose build` in folder where `docker-compose.yaml` is located
+4. Run Docker containers `docker-compose up -d`
+5. install all dependencies (Composer, NPM) `docker exec php composer install`, `docker exec php npm install`
+6. Build Css and JS files for public `docker exec php npm run dev`
+7. Migrate database with seeds `docker exec php php artisan migrate --seed`
+8. Launch websockets server `docker exec php php artisan websockets:serve` (do it from new terminal window)
+9. open http://127.0.0.1:8001
 
-## Useful
-1. app will be accessable to localhost port 8001 "http://127.0.0.1:8001/"
-2. Seeded test user passwords all will be "password"
+## User data information
+Seeded test user passwords will be "password"
+
+## Container access information
+app will be accessable to localhost port 8001 "http://127.0.0.1:8001/"
+
+---
+If there is trouble building docker file? Try `docker-compose build --force-rm --no-cache`
