@@ -19,9 +19,11 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - datatables.net - used to process datatables on client side  
 
 ## Project "My Chat" setup guide
+
+
 1. Clone this reposotory.
 2. Copy `.env.example` as `.env` (change db configs if needed, but everything should be working by default)
-3. Build project `docker-compose build` in folder where `docker-compose.yaml` is located
+3. Build project `docker-compose build` from `docker` folder where `docker-compose.yaml` is located
 4. Run Docker containers `docker-compose up -d`
 5. install all dependencies (Composer, NPM) `docker exec php composer install`, `docker exec php npm install`
 6. Build Css and JS files for public `docker exec php npm run dev`
@@ -34,6 +36,9 @@ Seeded test user passwords will be "password"
 
 ## Container access information
 app will be accessable to localhost port 8001 "http://127.0.0.1:8001/"
+
+## Data base access information 
+Database passwords could be seend in `docker/docker-compose.yaml` file
 
 ---
 If there is trouble building docker file? Try `docker-compose build --force-rm --no-cache`
